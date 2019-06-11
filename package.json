@@ -1,0 +1,19 @@
+{
+  "name": "docker-node-api",
+  "version": "1.0.0",
+  "description": "Docker api interface for nodejs. Wrapper for dockerode.",
+  "main": "dist/index.js",
+  "author": "CynicalToaster",
+  "dependencies": {
+    "dockerode": "^2.5.8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5"
+  },
+  "scripts": {
+    "build": "babel src --out-dir dist"
+  }
+}
