@@ -29,7 +29,9 @@ Object.defineProperty(exports, "DockerContainer", {
 });
 exports["default"] = void 0;
 
+var _newClasses = require("./newClasses");
+
 var _classes = require("./classes");
 
-var _default = _classes.DockerApi;
+var _default = _newClasses.DockerApi;
 exports["default"] = _default;

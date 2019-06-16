@@ -14,3 +14,4 @@ var DockerNetwork = function DockerNetwork() {
 };
 
 exports["default"] = DockerNetwork;
+;

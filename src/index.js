@@ -1,4 +1,4 @@
-import { DockerApi } from './classes';
+import { DockerApi } from './newClasses';
 
 export default DockerApi;
 

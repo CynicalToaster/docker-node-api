@@ -1,4 +1,5 @@
 import {
+  DockerPort,
   DockerVolume,
 } from './';
 
@@ -6,6 +7,7 @@ export default class DockerContainer {
   constructor(
     name,
     {
+      id,
       image,
       ports = [],
       volumes = [],
@@ -13,9 +15,10 @@ export default class DockerContainer {
     },
     docker,
   ) {
+    this.id = id;
     this.name = name;
     this.image = image;
-    this.ports = ports;
+    this.ports = DockerPort.map(ports);
     this.volumes = DockerVolume.map(volumes);
     this.dockerFile = dockerFile;
 
@@ -34,56 +37,46 @@ export default class DockerContainer {
   build() {
   }
 
-  create() {
-    return new Promise((resolve, reject) => {
-      this.container.inspect()
-        .then((container) => {
-          this._container = container;
+  async create() {
+    const containerExists = await this._docker.getContainer();
 
-          resolve(this);
-        })
-        .catch((err) => {
-          this._docker.createContainer({
-            name: this.name,
-            Image: this.image,
-            HostConfig: {
-              Mounts: this.volumes.map(volume => ({
-                Source: volume.src,
-                Target: volume.dest,
-                Type: volume.type,
-              })),
-              PortBindings: this.ports.reduce((obj, port) => {
-                const splitPort = port.split(':');
-        
-                obj[`${splitPort[1]}/tcp`] = [{
-                  HostPort: splitPort[0],
-                }];
-    
-                return obj;
-              }, {}),
-            },
-            // Networks: this.networks,
+    if (!this._container) {
+      await new Promise((resolve) => {
+        this._docker.createContainer(this.dockerFormat)
+          .then((container) => {
+            console.log('Created new container');
+
+            this._container = container;
+  
+            resolve(this);
           })
-            .then((container) => {
-              this._container = container;
-    
-              resolve(this);
-            })
-            .catch(err => reject(err));
-        });
-    });
+          .catch(() => resolve());
+      });
+    }
+
+    return this;
   }
 
   start() {
-    this.container.start()
-      .then(() => {
-        console.log('Container Started');
-      }).catch(() => {
-        console.log('Failed to start container: Creating new');
+    return new Promise((resolve, reject) => {
+      this.container.start()
+        .then(() => {
+          console.log('Started container');
 
-        this.create(userId)
-          .then(c => c.start());
-      });
+          resolve(this);
+        }).catch(() => {
+          console.log('Failed to start creating new container');
+  
+          this.create()
+            .then(container => {
+              console.log('Starting container');
+
+              this.container.start()
+                .then(() => resolve(this))
+                .catch(() => reject());
+            });
+        });
+    });
   }
 
   stop() {
@@ -95,6 +88,36 @@ export default class DockerContainer {
   }
 
   inspect() {
-    con
+    return new Promise((resolve) => {
+      this.container.inspect()
+        .then((container) => {
+          console.log('Inspect found container');
+
+          // this._container = container;
+
+          resolve(this);
+        })
+        .catch(() => resolve());
+    });
   }
+
+  get dockerFormat() {
+    return {
+      name: this.name,
+      Image: this.image,
+      Ports: this.ports.map(port => port.dockerFormat),
+      HostConfig: {
+        Mounts: this.volumes.map(volume => ({
+          Source: volume.src,
+          Target: volume.dest,
+          Type: volume.type,
+        })),
+      },
+      // Networks: this.networks,
+    };
+  }
+
+  // set dockerFormat() {
+    
+  // }
 }
