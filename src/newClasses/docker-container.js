@@ -37,13 +37,11 @@ export default class DockerContainer extends DockerObject {
     Names = null,
     Ports = null,
   }) {
-    console.log(Id);
-
     this.id    = Id;
     this.image = Image;
 
     this.name  = Names ? Names[0].replace(/^\//, '') : this.name;
-    this.ports = Ports ? Ports.map(port => new DockerPort().fromDockerSyntax(port)) : this.ports;
+    this.ports = Ports ? DockerPort.map(Ports, true) : this.ports;
 
     return this;
   }
