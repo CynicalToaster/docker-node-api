@@ -49,3 +49,4 @@ function () {
 exports["default"] = DockerApi;
 ;
 global.$dockerApi = new DockerApi();
+//# sourceMappingURL=docker-api.js.map

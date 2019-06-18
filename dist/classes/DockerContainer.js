@@ -180,3 +180,4 @@ function () {
 }();
 
 exports["default"] = DockerContainer;
+//# sourceMappingURL=DockerContainer.js.map

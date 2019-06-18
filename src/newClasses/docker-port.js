@@ -6,7 +6,9 @@ export default class DockerPort extends DockerObject {
     type        = 'tcp',
     publicPort  = null,
     privatePort = null,
-    } = {}) {
+  } = {}) {
+    super();
+
     this.ip          = ip;
     this.type        = type;
     this.publicPort  = publicPort;

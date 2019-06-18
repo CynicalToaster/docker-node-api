@@ -2,13 +2,13 @@
 
 var _newClasses = require("./newClasses");
 
-var dockerApi = new _newClasses.DockerApi();
-console.log(_newClasses.DockerPort.map([{
-  publicPort: '8080'
-}, {
-  publicPort: '8090'
-}])); // DockerContainer
+var dockerApi = new _newClasses.DockerApi(); // DockerContainer
 //   .get('teedev.devan.testGroup.apache')
 //   .then((containers) => {
 //     console.log(containers);
 //   });
+
+_newClasses.DockerContainer.getAll().then(function (containers) {
+  console.log(containers);
+});
+//# sourceMappingURL=test.js.map

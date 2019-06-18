@@ -86,3 +86,4 @@ function () {
 
 exports["default"] = DockerVolume;
 ;
+//# sourceMappingURL=docker-volume.js.map

@@ -130,3 +130,4 @@ function () {
 }();
 
 exports["default"] = DockerApi;
+//# sourceMappingURL=DockerApi.js.map

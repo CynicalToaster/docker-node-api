@@ -35,3 +35,4 @@ var _classes = require("./classes");
 
 var _default = _newClasses.DockerApi;
 exports["default"] = _default;
+//# sourceMappingURL=index.js.map

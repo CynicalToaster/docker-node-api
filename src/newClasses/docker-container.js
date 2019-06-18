@@ -1,14 +1,17 @@
 import {
+  DockerObject,
   DockerPort,
 } from './';
 
-export default class DockerContainer {
+export default class DockerContainer extends DockerObject {
   constructor({
     id,
     name,
     ports,
     image,
   } = {}) {
+    super();
+
     this.id    = id,
     this.name  = name;
     this.ports = ports;
@@ -24,11 +27,7 @@ export default class DockerContainer {
   static async getAll() {
     const dockerContainers = await $dockerApi.listContainers({ all: true });
 
-    return dockerContainers.map(
-      dockerContainer =>
-        new DockerContainer()
-          .fromDockerSyntax(dockerContainer),
-    );
+    return DockerContainer.map(dockerContainers, true);
   }
 
   fromDockerSyntax({
@@ -38,6 +37,8 @@ export default class DockerContainer {
     Names = null,
     Ports = null,
   }) {
+    console.log(Id);
+
     this.id    = Id;
     this.image = Image;
 

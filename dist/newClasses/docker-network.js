@@ -15,3 +15,4 @@ var DockerNetwork = function DockerNetwork() {
 
 exports["default"] = DockerNetwork;
 ;
+//# sourceMappingURL=docker-network.js.map

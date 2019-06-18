@@ -15,12 +15,22 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
 var _ = require("./");
 
 var DockerContainer =
 /*#__PURE__*/
-function () {
+function (_DockerObject) {
+  (0, _inherits2["default"])(DockerContainer, _DockerObject);
+
   function DockerContainer() {
+    var _this;
+
     var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
         id = _ref.id,
         name = _ref.name,
@@ -28,9 +38,11 @@ function () {
         image = _ref.image;
 
     (0, _classCallCheck2["default"])(this, DockerContainer);
-    this.id = id, this.name = name;
-    this.ports = ports;
-    this.image = image;
+    _this = (0, _possibleConstructorReturn2["default"])(this, (0, _getPrototypeOf2["default"])(DockerContainer).call(this));
+    _this.id = id, _this.name = name;
+    _this.ports = ports;
+    _this.image = image;
+    return _this;
   }
 
   (0, _createClass2["default"])(DockerContainer, [{
@@ -44,6 +56,7 @@ function () {
           Names = _ref2$Names === void 0 ? null : _ref2$Names,
           _ref2$Ports = _ref2.Ports,
           Ports = _ref2$Ports === void 0 ? null : _ref2$Ports;
+      console.log(Id);
       this.id = Id;
       this.image = Image;
       this.name = Names ? Names[0].replace(/^\//, '') : this.name;
@@ -116,9 +129,7 @@ function () {
 
               case 2:
                 dockerContainers = _context2.sent;
-                return _context2.abrupt("return", dockerContainers.map(function (dockerContainer) {
-                  return new DockerContainer().fromDockerSyntax(dockerContainer);
-                }));
+                return _context2.abrupt("return", DockerContainer.map(dockerContainers, true));
 
               case 4:
               case "end":
@@ -136,7 +147,8 @@ function () {
     }()
   }]);
   return DockerContainer;
-}();
+}(_.DockerObject);
 
 exports["default"] = DockerContainer;
 ;
+//# sourceMappingURL=docker-container.js.map

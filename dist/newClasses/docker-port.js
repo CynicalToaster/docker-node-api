@@ -13,6 +13,8 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
 var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
 var _ = require("./");
@@ -36,11 +38,12 @@ function (_DockerObject) {
         privatePort = _ref$privatePort === void 0 ? null : _ref$privatePort;
 
     (0, _classCallCheck2["default"])(this, DockerPort);
+    _this = (0, _possibleConstructorReturn2["default"])(this, (0, _getPrototypeOf2["default"])(DockerPort).call(this));
     _this.ip = ip;
     _this.type = type;
     _this.publicPort = publicPort;
     _this.privatePort = privatePort;
-    return (0, _possibleConstructorReturn2["default"])(_this);
+    return _this;
   }
 
   (0, _createClass2["default"])(DockerPort, [{
@@ -76,3 +79,4 @@ function (_DockerObject) {
 
 exports["default"] = DockerPort;
 ;
+//# sourceMappingURL=docker-port.js.map

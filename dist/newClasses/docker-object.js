@@ -21,25 +21,25 @@ function () {
   (0, _createClass2["default"])(DockerObject, null, [{
     key: "map",
     value: function map(object) {
+      var _this = this;
+
       var dockerSyntax = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
       if (Array.isArray(object)) {
         return object.map(function (port) {
-          return DockerObject.map(port);
+          return _this.map(port, dockerSyntax);
         });
       }
-
-      console.log(this, object);
 
       if (object instanceof DockerObject) {
         return object;
       }
 
       if (dockerSyntax) {
-        return new DockerObject().fromDockerSyntax(object);
+        return new this.prototype.constructor().fromDockerSyntax(object);
       }
 
-      return new DockerObject(object);
+      return new this.prototype.constructor(object);
     }
   }]);
   return DockerObject;
@@ -47,3 +47,4 @@ function () {
 
 exports["default"] = DockerObject;
 ;
+//# sourceMappingURL=docker-object.js.map

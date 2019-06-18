@@ -14,3 +14,4 @@ var DockerImage = function DockerImage() {
 };
 
 exports["default"] = DockerImage;
+//# sourceMappingURL=DockerImage.js.map

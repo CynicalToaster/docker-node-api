@@ -18,6 +18,6 @@
     "@babel/preset-env": "^7.4.5"
   },
   "scripts": {
-    "build": "babel src --out-dir dist"
+    "build": "babel src --out-dir dist --source-maps"
   }
 }
