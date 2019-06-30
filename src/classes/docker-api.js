@@ -1,18 +1,18 @@
 
 import Docker from 'dockerode';
 
-import {
-  DockerPort,
-  DockerContainer,
-} from './';
+// import {
+//   DockerPort,
+//   DockerContainer,
+// } from '.';
 
 export default class DockerApi {
   constructor(
-    user = null,
-    scope = null,
+    user    = null,
+    scope   = null,
     options = null,
   ) {
-    this.user = user;
+    this.user  = user;
     this.scope = scope;
 
     this._docker = new Docker(options);
@@ -25,6 +25,10 @@ export default class DockerApi {
   createContainer(...params) {
     return this._docker.createContainer(...params);
   }
-};
+
+  getContainer(container) {
+    return this._docker.getContainer(container.id);
+  }
+}
 
 global.$dockerApi = new DockerApi();

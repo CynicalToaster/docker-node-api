@@ -10,6 +10,15 @@
       "name": "Launch Program",
       "program": "${workspaceFolder}/dist/test.js",
       "preLaunchTask": "build"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Eslint",
+      "program": "${workspaceFolder}/node_modules/eslint/bin/eslint.js",
+      "args": [
+        "./src/classes/_pleasepleaseme.js",
+      ],
     }
   ]
 }

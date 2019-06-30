@@ -1,6 +1,8 @@
-export { default as DockerApi } from './DockerApi';
-export { default as DockerPort } from './DockerPort';
-export { default as DockerImage } from './DockerImage';
-export { default as DockerVolume } from './DockerVolume';
-export { default as DockerNetwork } from './DockerNetwork';
-export { default as DockerContainer } from './DockerContainer';
+export { default as DockerApi } from './docker-api';
+export { default as DockerObject } from './docker-object';
+export { default as DockerStack } from './docker-stack';
+
+export { default as DockerPort } from './docker-port';
+export { default as DockerVolume } from './docker-volume';
+export { default as DockerNetwork } from './docker-network';
+export { default as DockerContainer } from './docker-container';

@@ -46,5 +46,4 @@ function () {
 }();
 
 exports["default"] = DockerObject;
-;
 //# sourceMappingURL=docker-object.js.map

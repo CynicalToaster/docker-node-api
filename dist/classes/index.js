@@ -8,49 +8,57 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "DockerApi", {
   enumerable: true,
   get: function get() {
-    return _DockerApi["default"];
+    return _dockerApi["default"];
+  }
+});
+Object.defineProperty(exports, "DockerObject", {
+  enumerable: true,
+  get: function get() {
+    return _dockerObject["default"];
+  }
+});
+Object.defineProperty(exports, "DockerStack", {
+  enumerable: true,
+  get: function get() {
+    return _dockerStack["default"];
   }
 });
 Object.defineProperty(exports, "DockerPort", {
   enumerable: true,
   get: function get() {
-    return _DockerPort["default"];
-  }
-});
-Object.defineProperty(exports, "DockerImage", {
-  enumerable: true,
-  get: function get() {
-    return _DockerImage["default"];
+    return _dockerPort["default"];
   }
 });
 Object.defineProperty(exports, "DockerVolume", {
   enumerable: true,
   get: function get() {
-    return _DockerVolume["default"];
+    return _dockerVolume["default"];
   }
 });
 Object.defineProperty(exports, "DockerNetwork", {
   enumerable: true,
   get: function get() {
-    return _DockerNetwork["default"];
+    return _dockerNetwork["default"];
   }
 });
 Object.defineProperty(exports, "DockerContainer", {
   enumerable: true,
   get: function get() {
-    return _DockerContainer["default"];
+    return _dockerContainer["default"];
   }
 });
 
-var _DockerApi = _interopRequireDefault(require("./DockerApi"));
+var _dockerApi = _interopRequireDefault(require("./docker-api"));
 
-var _DockerPort = _interopRequireDefault(require("./DockerPort"));
+var _dockerObject = _interopRequireDefault(require("./docker-object"));
 
-var _DockerImage = _interopRequireDefault(require("./DockerImage"));
+var _dockerStack = _interopRequireDefault(require("./docker-stack"));
 
-var _DockerVolume = _interopRequireDefault(require("./DockerVolume"));
+var _dockerPort = _interopRequireDefault(require("./docker-port"));
 
-var _DockerNetwork = _interopRequireDefault(require("./DockerNetwork"));
+var _dockerVolume = _interopRequireDefault(require("./docker-volume"));
 
-var _DockerContainer = _interopRequireDefault(require("./DockerContainer"));
+var _dockerNetwork = _interopRequireDefault(require("./docker-network"));
+
+var _dockerContainer = _interopRequireDefault(require("./docker-container"));
 //# sourceMappingURL=index.js.map

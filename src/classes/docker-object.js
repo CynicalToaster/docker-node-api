@@ -14,4 +14,4 @@ export default class DockerObject {
 
     return new this.prototype.constructor(object);
   }
-};
+}

@@ -13,8 +13,10 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _dockerode = _interopRequireDefault(require("dockerode"));
 
-var _ = require("./");
-
+// import {
+//   DockerPort,
+//   DockerContainer,
+// } from '.';
 var DockerApi =
 /*#__PURE__*/
 function () {
@@ -42,11 +44,15 @@ function () {
 
       return (_this$_docker2 = this._docker).createContainer.apply(_this$_docker2, arguments);
     }
+  }, {
+    key: "getContainer",
+    value: function getContainer(container) {
+      return this._docker.getContainer(container.id);
+    }
   }]);
   return DockerApi;
 }();
 
 exports["default"] = DockerApi;
-;
 global.$dockerApi = new DockerApi();
 //# sourceMappingURL=docker-api.js.map
