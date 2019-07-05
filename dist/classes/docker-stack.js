@@ -20,14 +20,28 @@ var DockerStack =
 function () {
   function DockerStack() {
     var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        _ref$scope = _ref.scope,
+        scope = _ref$scope === void 0 ? null : _ref$scope,
         _ref$containers = _ref.containers,
         containers = _ref$containers === void 0 ? [] : _ref$containers;
 
     (0, _classCallCheck2["default"])(this, DockerStack);
+    this.scope = scope;
     this.containers = containers;
+
+    this._applyScope();
   }
 
   (0, _createClass2["default"])(DockerStack, [{
+    key: "_applyScope",
+    value: function _applyScope() {
+      var _this = this;
+
+      this.containers.forEach(function (container) {
+        container.scope = _this.scope;
+      });
+    }
+  }, {
     key: "create",
     value: function () {
       var _create = (0, _asyncToGenerator2["default"])(
@@ -131,6 +145,41 @@ function () {
       }
 
       return stop;
+    }()
+  }, {
+    key: "restart",
+    value: function () {
+      var _restart = (0, _asyncToGenerator2["default"])(
+      /*#__PURE__*/
+      _regenerator["default"].mark(function _callee4() {
+        var promises;
+        return _regenerator["default"].wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                promises = [];
+                this.containers.forEach(function (container) {
+                  promises.push(container.restart());
+                });
+                _context4.next = 4;
+                return Promise.all(promises);
+
+              case 4:
+                return _context4.abrupt("return", this);
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function restart() {
+        return _restart.apply(this, arguments);
+      }
+
+      return restart;
     }()
   }]);
   return DockerStack;

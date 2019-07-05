@@ -9,6 +9,7 @@ export default class DockerContainer extends DockerObject {
     id,
     name,
     image,
+    scope,
     command,
     ports   = [],
     volumes = [],
@@ -17,6 +18,7 @@ export default class DockerContainer extends DockerObject {
 
     this.id = id;
     this.name = name;
+    this.scope = scope;
     this.image = image;
     this.command = command;
 
@@ -29,7 +31,7 @@ export default class DockerContainer extends DockerObject {
   static async get(name) {
     const containers = await this.getAll();
 
-    return containers.find(c => c.name === name);
+    return containers.find(c => c.fullName === name);
   }
 
   static async getAll() {
@@ -38,8 +40,19 @@ export default class DockerContainer extends DockerObject {
     return this.map(dockerContainers, true);
   }
 
+  get fullName() {
+    let name = '';
+
+    name += `${$dockerApi.scope}.` || '';
+    name += `${$dockerApi.user}.` || '';
+    name += `${this.scope}.` || '';
+    name += this.name;
+
+    return name;
+  }
+
   async get() {
-    const container = await DockerContainer.get(this.name);
+    const container = await DockerContainer.get(this.fullName);
 
     Object.assign(this, container);
     return this;
@@ -58,7 +71,8 @@ export default class DockerContainer extends DockerObject {
     this.image   = Image;
     this.command = Command;
 
-    this.name    = Names  ? Names[0].replace(/^\//, '')    : this.name;
+    this.name    = Names  ? Names[0].replace(/^.+\./, '')  : this.name;
+    this.scope   = Names  ? Names[0].replace(/^.+\.([a-zA-Z]+)\..+/, '$1')  : this.scope;
     this.ports   = Ports  ? DockerPort.map(Ports, true)    : this.ports;
     this.volumes = Mounts ? DockerVolume.map(Mounts, true) : this.volumes;
 
@@ -70,11 +84,11 @@ export default class DockerContainer extends DockerObject {
       Tty: true,
 
       Id     : this.id,
-      name   : this.name,
+      name   : this.fullName,
       Image  : this.image,
       Command: this.command,
 
-      Names : [`/${this.name}`],
+      Names : [`/${this.fullName}`],
       Ports : this.ports.map(port => port.toDockerSyntax()),
       Mounts: this.volumes.map(volume => volume.toDockerSyntax()),
 
@@ -110,7 +124,11 @@ export default class DockerContainer extends DockerObject {
     });
   }
 
-  start() {
+  async start(canAutoCreate = true) {
+    if (!this.id) {
+      await this.get();
+    }
+
     const dockerContainer = $dockerApi.getContainer(this);
 
     return new Promise((resolve, reject) => {
@@ -126,6 +144,15 @@ export default class DockerContainer extends DockerObject {
               resolve(this);
               break;
 
+            case 404:
+              if (canAutoCreate) {
+                await this.create();
+                await this.start(false);
+              }
+
+              resolve(this);
+              break;
+
             default:
               reject(err);
               break;
@@ -134,7 +161,11 @@ export default class DockerContainer extends DockerObject {
     });
   }
 
-  stop() {
+  async stop() {
+    if (!this.id) {
+      await this.get();
+    }
+
     const dockerContainer = $dockerApi.getContainer(this);
 
     return new Promise((resolve, reject) => {
@@ -150,6 +181,10 @@ export default class DockerContainer extends DockerObject {
               resolve(this);
               break;
 
+            case 404:
+              resolve(this);
+              break;
+
             default:
               reject(err);
               break;
@@ -158,7 +193,11 @@ export default class DockerContainer extends DockerObject {
     });
   }
 
-  restart() {
+  async restart() {
+    if (!this.id) {
+      await this.get();
+    }
+
     const dockerContainer = $dockerApi.getContainer(this);
 
     return new Promise((resolve, reject) => {

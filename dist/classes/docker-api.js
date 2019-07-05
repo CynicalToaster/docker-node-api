@@ -21,8 +21,8 @@ var DockerApi =
 /*#__PURE__*/
 function () {
   function DockerApi() {
-    var user = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var scope = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var scope = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var user = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     (0, _classCallCheck2["default"])(this, DockerApi);
     this.user = user;

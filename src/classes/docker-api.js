@@ -8,8 +8,8 @@ import Docker from 'dockerode';
 
 export default class DockerApi {
   constructor(
-    user    = null,
     scope   = null,
+    user    = null,
     options = null,
   ) {
     this.user  = user;

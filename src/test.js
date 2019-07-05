@@ -7,7 +7,7 @@ import {
   DockerContainer,
 } from './classes';
 
-const dockerApi = new DockerApi();
+$dockerApi = new DockerApi('teedev', 'devan');
 
 // DockerContainer
 //   .get('teedev.devan.testGroup.apache')
@@ -16,7 +16,7 @@ const dockerApi = new DockerApi();
 //   });
 
 const apache = new DockerContainer({
-  name: 'docker.devan.apache',
+  name: 'apache',
   image: 'teedev:apache',
   ports: [
     {
@@ -33,7 +33,7 @@ const apache = new DockerContainer({
 });
 
 const php = new DockerContainer({
-  name: 'docker.devan.php',
+  name: 'php',
   image: 'teedev:php',
   ports: [
     {
@@ -50,12 +50,19 @@ const php = new DockerContainer({
 });
 
 const stack = new DockerStack({
+  scope: 'devenv',
   containers: [
     apache,
     php,
-  ]
+  ],
+  volumes: [
+
+  ],
+  networks: [
+    
+  ],
 });
 
-stack.create().then(() => {
-  stack.start();
+stack.restart().then(() => {
+  console.log('Done');
 });

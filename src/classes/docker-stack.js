@@ -1,8 +1,18 @@
 export default class DockerStack {
   constructor({
+    scope      = null,
     containers = [],
   } = {}) {
+    this.scope      = scope;
     this.containers = containers;
+
+    this._applyScope();
+  }
+
+  _applyScope() {
+    this.containers.forEach((container) => {
+      container.scope = this.scope;
+    });
   }
 
   async create() {
@@ -34,6 +44,18 @@ export default class DockerStack {
 
     this.containers.forEach((container) => {
       promises.push(container.stop());
+    });
+
+    await Promise.all(promises);
+
+    return this;
+  }
+
+  async restart() {
+    const promises = [];
+
+    this.containers.forEach((container) => {
+      promises.push(container.restart());
     });
 
     await Promise.all(promises);

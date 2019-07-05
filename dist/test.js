@@ -3,14 +3,14 @@
 var _classes = require("./classes");
 
 /* eslint-disable */
-var dockerApi = new _classes.DockerApi(); // DockerContainer
+$dockerApi = new _classes.DockerApi('teedev', 'devan'); // DockerContainer
 //   .get('teedev.devan.testGroup.apache')
 //   .then((containers) => {
 //     console.log(containers);
 //   });
 
 var apache = new _classes.DockerContainer({
-  name: 'docker.devan.apache',
+  name: 'apache',
   image: 'teedev:apache',
   ports: [{
     publicPort: 8090,
@@ -22,7 +22,7 @@ var apache = new _classes.DockerContainer({
   }]
 });
 var php = new _classes.DockerContainer({
-  name: 'docker.devan.php',
+  name: 'php',
   image: 'teedev:php',
   ports: [{
     publicPort: 8070,
@@ -34,13 +34,10 @@ var php = new _classes.DockerContainer({
   }]
 });
 var stack = new _classes.DockerStack({
+  scope: 'devenv',
   containers: [apache, php]
 });
-stack.create().then(function () {
-  stack.start();
-}); // container.create()
-//   .then(async (container) => {
-//     await container.start();
-//     console.log(container);
-//   });
+stack.restart().then(function () {
+  console.log('Done');
+});
 //# sourceMappingURL=test.js.map
