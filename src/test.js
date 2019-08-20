@@ -6,6 +6,7 @@ import {
   DockerStack,
   DockerContainer,
 } from './classes';
+import DockerImage from './classes/docker-image';
 
 $dockerApi = new DockerApi('teedev', 'devan');
 
@@ -26,7 +27,7 @@ const apache = new DockerContainer({
   ],
   volumes: [
     {
-      src: '/c/github/teedev-docker/laravel-code-base',
+      src: '/c/github/teedev-api',
       dest: '/usr/local/apache2/htdocs',
     },
   ],
@@ -43,7 +44,7 @@ const php = new DockerContainer({
   ],
   volumes: [
     {
-      src: '/c/github/teedev-docker/laravel-code-base',
+      src: '/c/github/teedev-api',
       dest: '/usr/local/apache2/htdocs',
     },
   ],
@@ -63,6 +64,20 @@ const stack = new DockerStack({
   ],
 });
 
-stack.restart().then(() => {
-  console.log('Done');
+// stack.start().then(() => {
+//   console.log('Done');
+// });
+
+const testImage = new DockerImage({
+  name: 'test/testimage',
+  dockerFile: '/images/php.dockerfile',
+  context: '/github/teedev-docker',
 });
+
+testImage.build()
+  .then(() => {
+    console.log('Then');
+  })
+  .catch(() => {
+    console.log('Catch');
+  });

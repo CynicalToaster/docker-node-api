@@ -1,6 +1,10 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 var _classes = require("./classes");
+
+var _dockerImage = _interopRequireDefault(require("./classes/docker-image"));
 
 /* eslint-disable */
 $dockerApi = new _classes.DockerApi('teedev', 'devan'); // DockerContainer
@@ -17,7 +21,7 @@ var apache = new _classes.DockerContainer({
     privatePort: 80
   }],
   volumes: [{
-    src: '/c/github/teedev-docker/laravel-code-base',
+    src: '/c/github/teedev-api',
     dest: '/usr/local/apache2/htdocs'
   }]
 });
@@ -29,15 +33,27 @@ var php = new _classes.DockerContainer({
     privatePort: 9000
   }],
   volumes: [{
-    src: '/c/github/teedev-docker/laravel-code-base',
+    src: '/c/github/teedev-api',
     dest: '/usr/local/apache2/htdocs'
   }]
 });
 var stack = new _classes.DockerStack({
   scope: 'devenv',
-  containers: [apache, php]
+  containers: [apache, php],
+  volumes: [],
+  networks: []
+}); // stack.start().then(() => {
+//   console.log('Done');
+// });
+
+var testImage = new _dockerImage["default"]({
+  name: 'test/testimage',
+  dockerFile: '/images/php.dockerfile',
+  context: '/github/teedev-docker'
 });
-stack.restart().then(function () {
-  console.log('Done');
+testImage.build().then(function () {
+  console.log('Then');
+})["catch"](function () {
+  console.log('Catch');
 });
 //# sourceMappingURL=test.js.map

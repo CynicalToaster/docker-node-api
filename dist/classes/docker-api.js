@@ -49,6 +49,13 @@ function () {
     value: function getContainer(container) {
       return this._docker.getContainer(container.id);
     }
+  }, {
+    key: "buildImage",
+    value: function buildImage() {
+      var _this$_docker3;
+
+      return (_this$_docker3 = this._docker).buildImage.apply(_this$_docker3, arguments);
+    }
   }]);
   return DockerApi;
 }();

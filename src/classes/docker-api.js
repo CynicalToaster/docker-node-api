@@ -29,6 +29,10 @@ export default class DockerApi {
   getContainer(container) {
     return this._docker.getContainer(container.id);
   }
+
+  buildImage(...params) {
+    return this._docker.buildImage(...params);
+  }
 }
 
 global.$dockerApi = new DockerApi();
